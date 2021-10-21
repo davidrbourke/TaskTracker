@@ -7,6 +7,6 @@ namespace TaskTracker.Domain.Models
     {
         public int Id { get; set; }
         public DateTime TrackerDayDateTime { get; set; }
-        public IEnumerable<TrackerTask> TrackerTasks { get; set; }
+        public IList<TrackerTask> TrackerTasks { get; set; }
     }
 }

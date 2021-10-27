@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import TaskList from './TaskList'
+import TaskList from './Components/TaskList'
+import CreateTask from './Components/CreateTask'
 
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
       <header className="App-header">
         <div>
           <TaskList></TaskList>
+          <CreateTask></CreateTask>
         </div>
       </header>
     </div>

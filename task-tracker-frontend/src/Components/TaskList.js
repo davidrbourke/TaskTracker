@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { loadTasks } from '../Api/taskApi'
 
 function TaskList() {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-    fetch('https://localhost:5001/Pad')
-      .then(res => res.json())
+    loadTasks()
       .then(item => {
         console.log(item)
         return setTasks(item)
       })
   }, [])
-
 
 
   const getTaskList = (taskDay) => {

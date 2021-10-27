@@ -7,7 +7,7 @@ function loadTasks() {
   return promise
 }
 
-function saveTask(task) {
+function saveTaskToApi(task) {
   const options = {
     method: 'POST',
     body: JSON.stringify(task),
@@ -24,5 +24,5 @@ function saveTask(task) {
 
 export {
   loadTasks,
-  saveTask
+  saveTaskToApi
 }

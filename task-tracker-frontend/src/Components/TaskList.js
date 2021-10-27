@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { loadTasks } from '../Api/taskApi'
+import React from 'react'
 
-function TaskList() {
-  const [tasks, setTasks] = useState([])
-
-  useEffect(() => {
-    loadTasks()
-      .then(item => {
-        console.log(item)
-        return setTasks(item)
-      })
-  }, [])
-
+function TaskList({tasks}) {
 
   const getTaskList = (taskDay) => {
     console.log(taskDay)
@@ -34,7 +23,7 @@ function TaskList() {
     <>
       <ul>
         {
-          tasks.map(taskDay => {
+          tasks !== undefined && tasks.map(taskDay => {
             return (
               <div>
                 <h2>{taskDay.id} - {taskDay.trackerDayDateTime}</h2>

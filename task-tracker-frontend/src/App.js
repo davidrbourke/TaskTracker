@@ -1,6 +1,5 @@
 import './App.css';
-import TaskList from './Components/TaskList'
-import CreateTask from './Components/CreateTask'
+import Tasks from './Components/Tasks'
 
 function App() {
 
@@ -8,8 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-          <TaskList></TaskList>
-          <CreateTask></CreateTask>
+          <Tasks></Tasks>
         </div>
       </header>
     </div>

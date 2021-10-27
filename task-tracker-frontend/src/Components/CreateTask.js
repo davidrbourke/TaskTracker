@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react'
-import { saveTask } from './../Api/taskApi'
 
-function CreateTask() {
+function CreateTask({saveTask}) {
 
   const [taskName, setTaskName] = useState('')
   const [taskDesc, setTaskDesc] = useState('')
@@ -16,7 +15,6 @@ function CreateTask() {
       }
 
       saveTask(task)
-        .then(res => console.log(res))
   }
 
   return (

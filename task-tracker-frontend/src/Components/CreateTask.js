@@ -1,5 +1,8 @@
 
 import React, { useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import FormGroup from 'react-bootstrap/esm/FormGroup'
+import Form from 'react-bootstrap/Form'
 
 function CreateTask({saveTask}) {
 
@@ -20,19 +23,23 @@ function CreateTask({saveTask}) {
   return (
     <>
       <h3>Create a task</h3>
-      <form>
+      <Form>
+        <Form.Group className="mb-3" controlId="formTaskName">
+          <Form.Label>Task Name</Form.Label>
+          <Form.Control type="input" placeholder="Enter task name" value={taskName} onChange={(e)=>setTaskName(e.currentTarget.value)} />
+          <Form.Text className="text-muted">Short description of task
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formTaskDesc">
+          <Form.Label>Task Description</Form.Label>
+          <Form.Control type="input" placeholder="Enter task description" value={taskDesc} onChange={(e)=>setTaskDesc(e.currentTarget.value)} />
+          <Form.Text className="text-muted">Full description of task
+          </Form.Text>
+        </Form.Group>
         <div>
-          <label for="task-name-input">Name</label>
-          <input id="task-name-input" type="text" value={taskName} onChange={(e)=>setTaskName(e.currentTarget.value)}></input>      
+          <Button variant="primary" onClick={saveNewTask}>Create</Button>
         </div>
-        <div>
-          <label for="task-name-input">Description</label>
-          <input id="task-name-input" type="text" value={taskDesc} onChange={(e)=>setTaskDesc(e.currentTarget.value)}></input>      
-        </div>
-        <div>
-          <input type="button" value="Create" onClick={saveNewTask}/>
-        </div>
-      </form>
+      </Form>
     </>
   )
 }

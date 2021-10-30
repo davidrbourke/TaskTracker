@@ -36,5 +36,12 @@ namespace TaskTracker.Api.Controllers
             _pad.AddTrackerTask(trackerTask);
             return CreatedAtAction(nameof(GetById), 1);
         }
+
+        [HttpPut]
+        public IActionResult Put(TrackerTask trackerTask)
+        {
+            _pad.UpdateTrackerTask(trackerTask);
+            return CreatedAtAction(nameof(GetById), 1);
+        }
     }
 }

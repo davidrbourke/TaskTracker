@@ -22,7 +22,23 @@ function saveTaskToApi(task) {
   return promise
 }
 
+function updateTaskToApi(task) {
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify(task),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  var promise = fetch(`${serverUrl}/Pad`, options)
+    .then(res => res.json())
+
+  return promise
+}
+
 export {
   loadTasks,
-  saveTaskToApi
+  saveTaskToApi,
+  updateTaskToApi
 }

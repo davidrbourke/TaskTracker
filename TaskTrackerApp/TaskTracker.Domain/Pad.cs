@@ -23,32 +23,22 @@ namespace TaskTracker.Domain
 
         private void LoadPad()
         {
-            // Sample data
-            this._trackerDays = new List<TrackerDay>()
-            {
-                new TrackerDay
-                {
-                    Id = 1,
-                    TrackerDayDateTime = DateTime.Now,
-                    TrackerTasks = new List<TrackerTask>
-                    {
-                        new TrackerTask
-                        {
-                            Id = 1,
-                            TrackerTaskName = "Do something 1"
-                        }
-                    }
-                }
-            };
-
             var padEntities = _repository.Load();
-            _trackerDays = MapToTrackerDays(padEntities);
+            if (padEntities.TrackerDayEntities == null)
+            {
+                _trackerDays = new List<TrackerDay>();
+            }
+            else
+            {
+                _trackerDays = MapToTrackerDays(padEntities);
+            }
         }
 
         public void AddTrackerTask(TrackerTask trackerTask)
         {
             // load trackerday
             var trackerDayDate = trackerTask.StartDateTime.Date;
+            trackerTask.Id = Guid.NewGuid();
             //if not found, create tracker day
 
             var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == trackerDayDate);
@@ -82,7 +72,8 @@ namespace TaskTracker.Domain
                         TrackerTaskName = tt.TrackerTaskName,
                         TrackerTaskDescription = tt.TrackerTaskDescription,
                         StartDateTime = tt.StartDateTime,
-                        EndDateTime = tt.EndDateTime
+                        EndDateTime = tt.EndDateTime,
+                        Status = tt.Status
                     }).ToList()
                 }).ToList()
             };
@@ -102,9 +93,22 @@ namespace TaskTracker.Domain
                     TrackerTaskName = tt.TrackerTaskName,
                     TrackerTaskDescription = tt.TrackerTaskDescription,
                     StartDateTime = tt.StartDateTime,
-                    EndDateTime = tt.EndDateTime
+                    EndDateTime = tt.EndDateTime,
+                    Status = tt.Status
                 }).ToList()
             }).ToList();
+        }
+
+        public void UpdateTrackerTask(TrackerTask trackerTask)
+        {
+            // load trackerday
+            var trackerDayDate = trackerTask.StartDateTime.Date;
+            //if not found, create tracker day
+
+            var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == trackerDayDate);
+            trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id).Status = trackerTask.Status;
+
+            _repository.Save(MapToPadEntity(this));
         }
     }
 }

@@ -1,15 +1,29 @@
 import React from 'react'
+import TaskStatus from './TaskStatus'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
-function TaskList({tasks}) {
+function TaskList({ tasks, updateTask }) {
 
   const getTaskList = (taskDay) => {
-    console.log(taskDay)
     return (
       <div>
         <ul>
           { taskDay.map(tasks => {
             return (
-              <li>{tasks.trackerTaskName}</li>
+              <li>
+                <Container>
+                  <Row>
+                    <Col>
+                      {tasks.trackerTaskName}
+                    </Col>
+                    <Col>
+                      <TaskStatus task={tasks} updateTask={updateTask}></TaskStatus>
+                    </Col>
+                  </Row>
+                </Container>
+              </li>
             )
           })}
         </ul>
@@ -26,7 +40,6 @@ function TaskList({tasks}) {
           tasks !== undefined && tasks.map(taskDay => {
             return (
               <div>
-                <h2>{taskDay.id} - {taskDay.trackerDayDateTime}</h2>
                 { getTaskList(taskDay.trackerTasks) }
               </div>
             )

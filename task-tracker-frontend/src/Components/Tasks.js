@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CreateTask from './CreateTask'
 import TaskList from './TaskList'
 import TaskDate from './TaskDate'
-import { loadTasks, saveTaskToApi } from '../Api/taskApi'
+import { loadTasks, saveTaskToApi, updateTaskToApi } from '../Api/taskApi'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -30,6 +30,14 @@ function Tasks() {
     })
   }
 
+  const saveUpdatedTask = (task) => {
+    updateTaskToApi(task)
+    .then(res => {
+      const updatedTaskCount = newTaskCount + 1
+      setNewTaskCount(updatedTaskCount)
+    })    
+  }
+
   return (
     <>
       <Container>
@@ -43,7 +51,7 @@ function Tasks() {
               </Row>
               <Row>
                 <Col>
-                  <TaskList tasks={tasks}></TaskList>
+                  <TaskList tasks={tasks} updateTask={saveUpdatedTask}></TaskList>
                 </Col>
               </Row>
             </Container>

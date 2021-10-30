@@ -15,6 +15,11 @@ namespace TaskTracker.Repository
         public PadEntity Load()
         {
             var state = File.ReadAllText("appState.json");
+            if (state == "")
+            {
+                return new PadEntity();
+            }
+
             return JsonSerializer.Deserialize<PadEntity>(state);
         }
     }

@@ -16,9 +16,9 @@ namespace TaskTracker.Domain
             LoadPad();
         }
 
-        public IEnumerable<TrackerDay> GetTrackerDays()
+        public IEnumerable<TrackerDay> GetTrackerDays(DateTime taskDate)
         {
-            return this._trackerDays;
+            return this._trackerDays.Where(t => t.TrackerDayDateTime.Date == taskDate.Date);
         }
 
         private void LoadPad()

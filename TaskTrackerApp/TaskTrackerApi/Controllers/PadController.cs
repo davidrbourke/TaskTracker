@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using TaskTracker.Domain;
 using TaskTracker.Domain.Models;
 
@@ -16,9 +17,9 @@ namespace TaskTracker.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index([FromQuery]DateTime taskDate)
         {
-            var trackerDays = _pad.GetTrackerDays();
+            var trackerDays = _pad.GetTrackerDays(taskDate);
             return Ok(trackerDays);
         }
 

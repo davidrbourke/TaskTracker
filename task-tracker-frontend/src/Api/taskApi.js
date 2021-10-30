@@ -1,7 +1,7 @@
 const serverUrl = 'https://localhost:5001'
 
-function loadTasks() {
-  var promise = fetch(`${serverUrl}/Pad`)
+function loadTasks(taskDate) {
+  var promise = fetch(`${serverUrl}/Pad?taskDate=${taskDate.toISOString()}`)
       .then(res => res.json())
 
   return promise

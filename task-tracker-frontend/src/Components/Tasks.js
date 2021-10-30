@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import CreateTask from './CreateTask'
 import TaskList from './TaskList'
+import TaskDate from './TaskDate'
 import { loadTasks, saveTaskToApi } from '../Api/taskApi'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 function Tasks() {
   const [tasks, setTasks] = useState([])
   const [newTaskCount, setNewTaskCount] = useState(0)
+  const [taskDate, setTaskDate] = useState(new Date())
+
 
   useEffect(() => {
-    loadTasks()
+    
+    loadTasks(taskDate)
       .then(item => {
         console.log(item)
         return setTasks(item)
       })
-  }, [newTaskCount])
+  }, [newTaskCount, taskDate])
 
   const saveTask = (task) => {
     saveTaskToApi(task)
@@ -25,8 +32,27 @@ function Tasks() {
 
   return (
     <>
-      <TaskList tasks={tasks}></TaskList>
-      <CreateTask saveTask={saveTask}></CreateTask>
+      <Container>
+        <Row>
+          <Col>
+            <Container>
+              <Row>
+                <Col>
+                  <TaskDate taskDate={taskDate} updateTaskDate={setTaskDate} />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <TaskList tasks={tasks}></TaskList>
+                </Col>
+              </Row>
+            </Container>
+          </Col>
+          <Col>
+            <CreateTask saveTask={saveTask}></CreateTask>
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }

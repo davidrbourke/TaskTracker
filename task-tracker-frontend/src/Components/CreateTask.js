@@ -18,6 +18,8 @@ function CreateTask({saveTask}) {
       }
 
       saveTask(task)
+      setTaskDesc('')
+      setTaskName('')
   }
 
   return (

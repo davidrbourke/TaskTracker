@@ -12,11 +12,21 @@ const statuses = [
   'Done'
 ]
 
+const nextStatus = [
+  'Start',
+  'Complete',
+  'Reset'
+]
+
 const updateTaskStatus = () => {
   let updatedTask = Object.assign({}, task)
   
   updatedTask.status = (task.status + 1) % 3
   updateTask(updatedTask)
+}
+
+const getVariant = () => {
+  return task.status === 2 ? "outline-secondary" : "primary"
 }
 
   return (
@@ -27,7 +37,7 @@ const updateTaskStatus = () => {
             {statuses[task.status]}
           </Col>
           <Col>
-            <Button onClick={updateTaskStatus}>Progress</Button>
+            <Button variant={getVariant()} onClick={updateTaskStatus}>{nextStatus[task.status]}</Button>
           </Col>
         </Row>
       </Container>

@@ -18,7 +18,13 @@ namespace TaskTracker.Domain
 
         public IEnumerable<TrackerDay> GetTrackerDays(DateTime taskDate)
         {
-            return this._trackerDays.Where(t => t.TrackerDayDateTime.Date == taskDate.Date);
+            var trackerDay = this._trackerDays.Where(t => t.TrackerDayDateTime.Date == taskDate.Date).FirstOrDefault();
+            if (trackerDay == null)
+            {
+                return new List<TrackerDay>();
+            }
+            trackerDay.TrackerTasks = trackerDay.TrackerTasks.Where(t => t.Deleted == false).ToList();
+            return new List<TrackerDay> { trackerDay };         
         }
 
         private void LoadPad()
@@ -73,7 +79,8 @@ namespace TaskTracker.Domain
                         TrackerTaskDescription = tt.TrackerTaskDescription,
                         StartDateTime = tt.StartDateTime,
                         EndDateTime = tt.EndDateTime,
-                        Status = tt.Status
+                        Status = tt.Status,
+                        Deleted = tt.Deleted
                     }).ToList()
                 }).ToList()
             };
@@ -94,7 +101,8 @@ namespace TaskTracker.Domain
                     TrackerTaskDescription = tt.TrackerTaskDescription,
                     StartDateTime = tt.StartDateTime,
                     EndDateTime = tt.EndDateTime,
-                    Status = tt.Status
+                    Status = tt.Status,
+                    Deleted = tt.Deleted
                 }).ToList()
             }).ToList();
         }
@@ -106,7 +114,9 @@ namespace TaskTracker.Domain
             //if not found, create tracker day
 
             var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == trackerDayDate);
-            trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id).Status = trackerTask.Status;
+            var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id);
+            foundTask.Status = trackerTask.Status;
+            foundTask.Deleted = trackerTask.Deleted;
 
             _repository.Save(MapToPadEntity(this));
         }

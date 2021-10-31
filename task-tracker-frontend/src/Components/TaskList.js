@@ -21,10 +21,10 @@ function TaskList({ tasks, updateTask }) {
               <li>
                 <Container>
                   <Row>
-                    <Col>
+                    <Col xs={7}>
                       {task.trackerTaskName}
                     </Col>
-                    <Col xs={7}>
+                    <Col xs={3}>
                       <TaskStatus task={task} updateTask={updateTask}></TaskStatus>
                     </Col>
                     <Col>

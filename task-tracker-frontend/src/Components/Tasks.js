@@ -51,13 +51,15 @@ function Tasks() {
               </Row>
               <Row>
                 <Col>
+                  <CreateTask saveTask={saveTask} taskDate={taskDate}></CreateTask>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
                   <TaskList tasks={tasks} updateTask={saveUpdatedTask}></TaskList>
                 </Col>
               </Row>
             </Container>
-          </Col>
-          <Col>
-            <CreateTask saveTask={saveTask}></CreateTask>
           </Col>
         </Row>
       </Container>

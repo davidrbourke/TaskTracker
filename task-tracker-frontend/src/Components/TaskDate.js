@@ -17,6 +17,11 @@ function TaskDate({ taskDate , updateTaskDate}) {
     updateTaskDate(updatedDate)
   }
 
+  const setDateToday = () => {
+    const updatedDate = dayjs()
+    updateTaskDate(updatedDate)
+  }
+
   return (
     <>
       <Container>
@@ -25,7 +30,8 @@ function TaskDate({ taskDate , updateTaskDate}) {
             <Button variant="outline-primary" onClick={setDateBack}> Back </Button>
           </Col>
           <Col>
-            {dayjs(taskDate).format("MMM DD YYYY")}
+            {dayjs(taskDate).format("MMM DD YYYY")} 
+            <Button variant="link" onClick={setDateToday}>(Go to today)</Button>
           </Col>
           <Col>
             <Button variant="outline-primary" onClick={setDateForward}> Forward </Button>

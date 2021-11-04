@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 function Tasks() {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState({})
   const [newTaskCount, setNewTaskCount] = useState(0)
   const [taskDate, setTaskDate] = useState(new Date())
 
@@ -38,6 +38,19 @@ function Tasks() {
     })    
   }
 
+  const updateEditingTask = (updatedTask) => {
+    const updatedTrackerTasks = []
+    tasks.trackerTasks.forEach((task) => {
+      if (task.id === updatedTask.id) {
+        task.editing = !updatedTask.editing
+      }
+      updatedTrackerTasks.push(task)
+    })
+    const tasksUpdated = Object.assign({}, tasks)
+    tasksUpdated.trackerTasks = updatedTrackerTasks
+    setTasks(tasksUpdated)
+  }
+
   return (
     <>
       <Container>
@@ -56,7 +69,7 @@ function Tasks() {
               </Row>
               <Row>
                 <Col>
-                  <TaskList tasks={tasks} updateTask={saveUpdatedTask}></TaskList>
+                  <TaskList tasks={tasks} updateTask={saveUpdatedTask} updateEditingTask={updateEditingTask}></TaskList>
                 </Col>
               </Row>
             </Container>

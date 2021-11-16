@@ -12,5 +12,6 @@ namespace TaskTracker.Domain.Models
         public int Sequence { get; set; }
         public int Status { get; set; }
         public bool Deleted { get; set; }
+        public bool Editing { get; set; }
     }
 }

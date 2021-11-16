@@ -19,7 +19,7 @@ namespace TaskTracker.Api.Controllers
         [HttpGet]
         public IActionResult Index([FromQuery]DateTime taskDate)
         {
-            var trackerDays = _pad.GetTrackerDays(taskDate);
+            var trackerDays = _pad.GetTrackerDay(taskDate);
             return Ok(trackerDays);
         }
 

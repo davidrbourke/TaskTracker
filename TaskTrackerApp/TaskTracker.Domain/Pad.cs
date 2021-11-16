@@ -16,15 +16,15 @@ namespace TaskTracker.Domain
             LoadPad();
         }
 
-        public IEnumerable<TrackerDay> GetTrackerDays(DateTime taskDate)
+        public TrackerDay GetTrackerDay(DateTime taskDate)
         {
             var trackerDay = this._trackerDays.Where(t => t.TrackerDayDateTime.Date == taskDate.Date).FirstOrDefault();
             if (trackerDay == null)
             {
-                return new List<TrackerDay>();
+                return new TrackerDay();
             }
             trackerDay.TrackerTasks = trackerDay.TrackerTasks.Where(t => t.Deleted == false).ToList();
-            return new List<TrackerDay> { trackerDay };         
+            return trackerDay;         
         }
 
         private void LoadPad()

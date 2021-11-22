@@ -55,8 +55,12 @@ namespace TaskTracker.Domain
                     TrackerDayDateTime = trackerTask.StartDateTime.Date,
                     TrackerTasks = new List<TrackerTask>()
                 };
+
                 _trackerDays.Add(trackerDay);
             }
+
+            var nextSequence = trackerDay.TrackerTasks.Count() + 1;
+            trackerTask.Sequence = nextSequence;
 
             // add task to day
             trackerDay.TrackerTasks.Add(trackerTask);
@@ -80,7 +84,8 @@ namespace TaskTracker.Domain
                         StartDateTime = tt.StartDateTime,
                         EndDateTime = tt.EndDateTime,
                         Status = tt.Status,
-                        Deleted = tt.Deleted
+                        Deleted = tt.Deleted,
+                        Sequence = tt.Sequence
                     }).ToList()
                 }).ToList()
             };
@@ -102,7 +107,8 @@ namespace TaskTracker.Domain
                     StartDateTime = tt.StartDateTime,
                     EndDateTime = tt.EndDateTime,
                     Status = tt.Status,
-                    Deleted = tt.Deleted
+                    Deleted = tt.Deleted,
+                    Sequence = tt.Sequence
                 }).ToList()
             }).ToList();
         }

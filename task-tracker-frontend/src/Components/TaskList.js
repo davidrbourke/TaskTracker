@@ -25,7 +25,7 @@ function TaskList({ tasks, updateTask, updateEditingTask }) {
     return (
       <div>
         <ul>
-          { taskDay.map(task => {
+          { taskDay !== null && taskDay.map(task => {
             return (
               <li>
                 <Container>

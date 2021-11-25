@@ -67,6 +67,34 @@ namespace TaskTracker.Domain
 
             _repository.Save(MapToPadEntity(this));
         }
+        public void UpdateTrackerTask(TrackerTask trackerTask)
+        {
+            // load trackerday
+            var trackerDayDate = trackerTask.StartDateTime.Date;
+            //if not found, create tracker day
+
+            var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == trackerDayDate);
+            var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id);
+            foundTask.Status = trackerTask.Status;
+            foundTask.Deleted = trackerTask.Deleted;
+
+            _repository.Save(MapToPadEntity(this));
+        }
+
+        public void SequenceChanged(SequenceChange sequenceChange)
+        {
+            var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == sequenceChange.TrackerDayDateTime.Date);
+            var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == sequenceChange.ChangedTrackerTaskId);
+            var nextTask = trackerDay.TrackerTasks.SingleOrDefault(t => t.Sequence == foundTask.Sequence + 1);
+
+            if (nextTask != null)
+            {
+                foundTask.Sequence += 1;
+                nextTask.Sequence -= 1;
+            }
+
+            _repository.Save(MapToPadEntity(this));
+        }
 
         private PadEntity MapToPadEntity(Pad pad)
         {
@@ -111,20 +139,6 @@ namespace TaskTracker.Domain
                     Sequence = tt.Sequence
                 }).ToList()
             }).ToList();
-        }
-
-        public void UpdateTrackerTask(TrackerTask trackerTask)
-        {
-            // load trackerday
-            var trackerDayDate = trackerTask.StartDateTime.Date;
-            //if not found, create tracker day
-
-            var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == trackerDayDate);
-            var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id);
-            foundTask.Status = trackerTask.Status;
-            foundTask.Deleted = trackerTask.Deleted;
-
-            _repository.Save(MapToPadEntity(this));
         }
     }
 }

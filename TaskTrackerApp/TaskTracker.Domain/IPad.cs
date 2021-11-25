@@ -8,5 +8,6 @@ namespace TaskTracker.Domain
         TrackerDay GetTrackerDay(DateTime taskDate);
         void AddTrackerTask(TrackerTask trackerTask);
         void UpdateTrackerTask(TrackerTask trackerTask);
+        void SequenceChanged(SequenceChange sequenceChange);
     }
 }

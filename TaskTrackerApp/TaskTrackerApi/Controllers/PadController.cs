@@ -43,5 +43,13 @@ namespace TaskTracker.Api.Controllers
             _pad.UpdateTrackerTask(trackerTask);
             return CreatedAtAction(nameof(GetById), 1);
         }
+
+        [HttpPost]
+        [Route("SequenceChanged")]
+        public IActionResult SequenceChanged(SequenceChange sequenceChange)
+        {
+            _pad.SequenceChanged(sequenceChange);
+            return Ok(1);
+        }
     }
 }

@@ -6,9 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import EditTask from './EditTask'
 
-function TaskList({ tasks, updateTask, updateEditingTask }) {
-
-  const [taskName, setTaskName] = useState('')
+function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
 
   const deleteTask = (task) => {
     task.deleted = true
@@ -21,7 +19,18 @@ function TaskList({ tasks, updateTask, updateEditingTask }) {
     updateEditingTask(task)
   }
 
-  const getTaskList = (taskDay) => {
+  const sequenceDown = (task) => {
+    console.log(task)
+    var sequenceChange = {
+      changedTrackerTaskId: task.id,
+      isChangedUp: false
+    }
+    sequenceChanged(sequenceChange)
+  }
+
+  const getTaskList = (tasks) => {
+
+    const taskDay = tasks.sort((a, b) => a.sequence - b.sequence)
     return (
       <div>
         <ul>
@@ -30,7 +39,7 @@ function TaskList({ tasks, updateTask, updateEditingTask }) {
               <li>
                 <Container>
                   <Row>
-                    <Col xs={7}>
+                    <Col xs={6}>
                       { task.editing === false &&
                         task.trackerTaskName
                       }
@@ -48,6 +57,9 @@ function TaskList({ tasks, updateTask, updateEditingTask }) {
                     </Col>
                     <Col>
                       <Button variant="light" onClick={() => deleteTask(task)}>x</Button>
+                    </Col>
+                    <Col>
+                      <Button variant="light"><i className="bi-arrow-down" onClick={() => sequenceDown(task)}></i></Button>
                     </Col>
                   </Row>
                 </Container>

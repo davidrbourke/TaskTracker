@@ -37,8 +37,24 @@ function updateTaskToApi(task) {
   return promise
 }
 
+function updateSequenceToApi(sequenceChange) {
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(sequenceChange),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  var promise = fetch(`${serverUrl}/Pad/SequenceChanged`, options)
+    .then(res => res.json())
+
+  return promise
+}
+
 export {
   loadTasks,
   saveTaskToApi,
-  updateTaskToApi
+  updateTaskToApi,
+  updateSequenceToApi
 }

@@ -20,10 +20,17 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   }
 
   const sequenceDown = (task) => {
-    console.log(task)
     var sequenceChange = {
       changedTrackerTaskId: task.id,
       isChangedUp: false
+    }
+    sequenceChanged(sequenceChange)
+  }
+
+  const sequenceUp = (task) => {
+    var sequenceChange = {
+      changedTrackerTaskId: task.id,
+      isChangedUp: true
     }
     sequenceChanged(sequenceChange)
   }
@@ -52,14 +59,17 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
                     </Col>
                     <Col>
                       <Button variant="light" onClick={() => editTask(task)}>
-                        { task.editing === false ? 'Edit' : 'Save' }
+                        { task.editing === false ? <i className="bi-pencil"></i> : <i className="bi-save-fill"></i> }
                       </Button>
                     </Col>
                     <Col>
-                      <Button variant="light" onClick={() => deleteTask(task)}>x</Button>
+                      <Button variant="light" onClick={() => deleteTask(task)}><i className="bi-trash"></i></Button>
                     </Col>
                     <Col>
-                      <Button variant="light"><i className="bi-arrow-down" onClick={() => sequenceDown(task)}></i></Button>
+                      <Button variant="light"  onClick={() => sequenceDown(task)}><i className="bi-arrow-down"></i></Button>
+                    </Col>
+                    <Col>
+                      <Button variant="light"  onClick={() => sequenceUp(task)}><i className="bi-arrow-up"></i></Button>
                     </Col>
                   </Row>
                 </Container>
@@ -77,7 +87,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
     <>
       <ul>
         {
-          tasks !== undefined && tasks.trackerTasks !== undefined &&
+          tasks !== undefined && tasks.trackerTasks !== undefined && tasks.trackerTasks !== null &&
             <div>
               { getTaskList(tasks.trackerTasks) }
             </div>

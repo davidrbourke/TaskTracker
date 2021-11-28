@@ -13,9 +13,9 @@ const statuses = [
 ]
 
 const nextStatus = [
-  'Start',
-  'Complete',
-  'Reset'
+  <i className="bi-caret-right-fill"></i>,
+  <i className="bi-check-lg"></i>,
+  <i className="bi-arrow-repeat"></i>
 ]
 
 const updateTaskStatus = () => {

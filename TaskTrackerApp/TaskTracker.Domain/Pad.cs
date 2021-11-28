@@ -83,14 +83,24 @@ namespace TaskTracker.Domain
 
         public void SequenceChanged(SequenceChange sequenceChange)
         {
+            var nextSequenceNumber = sequenceChange.IsChangedUp ? -1 : 1;
+
             var trackerDay = _trackerDays.FirstOrDefault(t => t.TrackerDayDateTime.Date == sequenceChange.TrackerDayDateTime.Date);
             var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == sequenceChange.ChangedTrackerTaskId);
-            var nextTask = trackerDay.TrackerTasks.SingleOrDefault(t => t.Sequence == foundTask.Sequence + 1);
+            var nextTask = trackerDay.TrackerTasks.SingleOrDefault(t => t.Sequence == foundTask.Sequence + nextSequenceNumber);
 
             if (nextTask != null)
             {
-                foundTask.Sequence += 1;
-                nextTask.Sequence -= 1;
+                if (sequenceChange.IsChangedUp)
+                {
+                    foundTask.Sequence -= 1;
+                    nextTask.Sequence += 1;
+                }
+                else
+                {
+                    foundTask.Sequence += 1;
+                    nextTask.Sequence -= 1;
+                }
             }
 
             _repository.Save(MapToPadEntity(this));

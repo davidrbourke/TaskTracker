@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaskTracker.Domain.Models;
 using TaskTracker.Repository;
+using Mapster;
 
 namespace TaskTracker.Domain
 {
@@ -110,22 +111,7 @@ namespace TaskTracker.Domain
         {
             var padEntity = new PadEntity
             {
-                TrackerDayEntities = _trackerDays.Select(td => new TrackerDayEntity
-                {
-                    Id = td.Id,
-                    TrackerDayDateTime = td.TrackerDayDateTime,
-                    TrackerTasks = td.TrackerTasks.Select(tt => new TrackerTaskEntity
-                    {
-                        Id = tt.Id,
-                        TrackerTaskName = tt.TrackerTaskName,
-                        TrackerTaskDescription = tt.TrackerTaskDescription,
-                        StartDateTime = tt.StartDateTime,
-                        EndDateTime = tt.EndDateTime,
-                        Status = tt.Status,
-                        Deleted = tt.Deleted,
-                        Sequence = tt.Sequence
-                    }).ToList()
-                }).ToList()
+                TrackerDayEntities = _trackerDays.AsQueryable().ProjectToType<TrackerDayEntity>().ToList()
             };
 
             return padEntity;
@@ -133,22 +119,7 @@ namespace TaskTracker.Domain
 
         private IList<TrackerDay> MapToTrackerDays(PadEntity padEntity)
         {
-            return padEntity.TrackerDayEntities.Select(td => new TrackerDay
-            {
-                Id = td.Id,
-                TrackerDayDateTime = td.TrackerDayDateTime,
-                TrackerTasks = td.TrackerTasks.Select(tt => new TrackerTask
-                {
-                    Id = tt.Id,
-                    TrackerTaskName = tt.TrackerTaskName,
-                    TrackerTaskDescription = tt.TrackerTaskDescription,
-                    StartDateTime = tt.StartDateTime,
-                    EndDateTime = tt.EndDateTime,
-                    Status = tt.Status,
-                    Deleted = tt.Deleted,
-                    Sequence = tt.Sequence
-                }).ToList()
-            }).ToList();
+            return padEntity.TrackerDayEntities.AsQueryable().ProjectToType<TrackerDay>().ToList();
         }
     }
 }

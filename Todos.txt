@@ -1,0 +1,17 @@
+terraform for infrastructure
+
+deploy to azure web app
+
+work out how to run react app and api in single service
+
+
+replace file with database, cosmos db
+
+refactor backend
+
+introduce state management for front end - redux?
+
+drap and drop for task priority
+
+unit tests
+

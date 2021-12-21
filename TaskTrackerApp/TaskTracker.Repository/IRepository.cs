@@ -2,7 +2,7 @@
 {
     public interface IRepository
     {
-        void Save(PadEntity padEntity);
-        PadEntity Load();
+        void Save(TaskItemsEntity padEntity);
+        TaskItemsEntity Load();
     }
 }

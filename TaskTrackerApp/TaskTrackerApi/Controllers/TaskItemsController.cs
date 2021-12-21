@@ -7,19 +7,19 @@ namespace TaskTracker.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PadController : Controller
+    public class TaskItemsController : Controller
     {
-        private readonly IPad _pad;
+        private readonly ITaskItems _taskItems;
 
-        public PadController(IPad pad)
+        public TaskItemsController(ITaskItems taskItems)
         {
-            _pad = pad;
+            _taskItems = taskItems;
         }
 
         [HttpGet]
         public IActionResult Index([FromQuery]DateTime taskDate)
         {
-            var trackerDays = _pad.GetTrackerDay(taskDate);
+            var trackerDays = _taskItems.GetTrackerDay(taskDate);
             return Ok(trackerDays);
         }
 
@@ -33,14 +33,14 @@ namespace TaskTracker.Api.Controllers
         [HttpPost]
         public IActionResult Post(TrackerTask trackerTask)
         {
-            _pad.AddTrackerTask(trackerTask);
+            _taskItems.AddTrackerTask(trackerTask);
             return CreatedAtAction(nameof(GetById), 1);
         }
 
         [HttpPut]
         public IActionResult Put(TrackerTask trackerTask)
         {
-            _pad.UpdateTrackerTask(trackerTask);
+            _taskItems.UpdateTrackerTask(trackerTask);
             return CreatedAtAction(nameof(GetById), 1);
         }
 
@@ -48,7 +48,7 @@ namespace TaskTracker.Api.Controllers
         [Route("SequenceChanged")]
         public IActionResult SequenceChanged(SequenceChange sequenceChange)
         {
-            _pad.SequenceChanged(sequenceChange);
+            _taskItems.SequenceChanged(sequenceChange);
             return Ok(1);
         }
     }

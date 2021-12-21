@@ -5,22 +5,22 @@ namespace TaskTracker.Repository
 {
     public class Repository : IRepository
     {
-        public void Save(PadEntity padEntity)
+        public void Save(TaskItemsEntity padEntity)
         {
             var state = JsonSerializer.Serialize(padEntity);
 
             File.WriteAllText("appState.json", state);
         }
 
-        public PadEntity Load()
+        public TaskItemsEntity Load()
         {
             var state = File.ReadAllText("appState.json");
             if (state == "")
             {
-                return new PadEntity();
+                return new TaskItemsEntity();
             }
 
-            return JsonSerializer.Deserialize<PadEntity>(state);
+            return JsonSerializer.Deserialize<TaskItemsEntity>(state);
         }
     }
 }

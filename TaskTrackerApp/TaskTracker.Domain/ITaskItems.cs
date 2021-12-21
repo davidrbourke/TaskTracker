@@ -3,7 +3,7 @@ using TaskTracker.Domain.Models;
 
 namespace TaskTracker.Domain
 {
-    public interface IPad
+    public interface ITaskItems
     {
         TrackerDay GetTrackerDay(DateTime taskDate);
         void AddTrackerTask(TrackerTask trackerTask);

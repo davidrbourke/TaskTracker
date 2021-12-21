@@ -2,7 +2,7 @@
 
 namespace TaskTracker.Repository
 {
-    public class PadEntity
+    public class TaskItemsEntity
     {
         public IEnumerable<TrackerDayEntity> TrackerDayEntities { get; set; }
     }

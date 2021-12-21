@@ -7,14 +7,14 @@ using Mapster;
 
 namespace TaskTracker.Domain
 {
-    public class Pad : IPad
+    public class TaskItems : ITaskItems
     {
         private IList<TrackerDay> _trackerDays;
         private readonly IRepository _repository;
-        public Pad(IRepository repository)
+        public TaskItems(IRepository repository)
         {
             _repository = repository;
-            LoadPad();
+            LoadTaskItems();
         }
 
         public TrackerDay GetTrackerDay(DateTime taskDate)
@@ -28,16 +28,16 @@ namespace TaskTracker.Domain
             return trackerDay;         
         }
 
-        private void LoadPad()
+        private void LoadTaskItems()
         {
-            var padEntities = _repository.Load();
-            if (padEntities.TrackerDayEntities == null)
+            var taskItemsEntity = _repository.Load();
+            if (taskItemsEntity.TrackerDayEntities == null)
             {
                 _trackerDays = new List<TrackerDay>();
             }
             else
             {
-                _trackerDays = MapToTrackerDays(padEntities);
+                _trackerDays = MapToTrackerDays(taskItemsEntity);
             }
         }
 
@@ -66,7 +66,7 @@ namespace TaskTracker.Domain
             // add task to day
             trackerDay.TrackerTasks.Add(trackerTask);
 
-            _repository.Save(MapToPadEntity(this));
+            _repository.Save(MapToTaskItemsEntity(this));
         }
         public void UpdateTrackerTask(TrackerTask trackerTask)
         {
@@ -79,7 +79,7 @@ namespace TaskTracker.Domain
             foundTask.Status = trackerTask.Status;
             foundTask.Deleted = trackerTask.Deleted;
 
-            _repository.Save(MapToPadEntity(this));
+            _repository.Save(MapToTaskItemsEntity(this));
         }
 
         public void SequenceChanged(SequenceChange sequenceChange)
@@ -104,22 +104,22 @@ namespace TaskTracker.Domain
                 }
             }
 
-            _repository.Save(MapToPadEntity(this));
+            _repository.Save(MapToTaskItemsEntity(this));
         }
 
-        private PadEntity MapToPadEntity(Pad pad)
+        private TaskItemsEntity MapToTaskItemsEntity(TaskItems taskItems)
         {
-            var padEntity = new PadEntity
+            var taskItemsEntity = new TaskItemsEntity
             {
                 TrackerDayEntities = _trackerDays.AsQueryable().ProjectToType<TrackerDayEntity>().ToList()
             };
 
-            return padEntity;
+            return taskItemsEntity;
         }
 
-        private IList<TrackerDay> MapToTrackerDays(PadEntity padEntity)
+        private IList<TrackerDay> MapToTrackerDays(TaskItemsEntity taskItemsEntity)
         {
-            return padEntity.TrackerDayEntities.AsQueryable().ProjectToType<TrackerDay>().ToList();
+            return taskItemsEntity.TrackerDayEntities.AsQueryable().ProjectToType<TrackerDay>().ToList();
         }
     }
 }

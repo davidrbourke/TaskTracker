@@ -46,7 +46,7 @@ namespace TaskTrackerApi
             });
 
             services.AddSingleton<IRepository, Repository>();
-            services.AddScoped<IPad, Pad>();
+            services.AddScoped<ITaskItems, TaskItems>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

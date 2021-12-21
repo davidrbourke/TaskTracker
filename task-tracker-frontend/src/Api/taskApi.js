@@ -1,7 +1,7 @@
 const serverUrl = 'https://localhost:5001'
 
 function loadTasks(taskDate) {
-  var promise = fetch(`${serverUrl}/Pad?taskDate=${taskDate.toISOString()}`)
+  var promise = fetch(`${serverUrl}/TaskItems?taskDate=${taskDate.toISOString()}`)
       .then(res => res.json())
 
   return promise
@@ -16,7 +16,7 @@ function saveTaskToApi(task) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/Pad`, options)
+  var promise = fetch(`${serverUrl}/TaskItems`, options)
     .then(res => res.json())
 
   return promise
@@ -31,7 +31,7 @@ function updateTaskToApi(task) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/Pad`, options)
+  var promise = fetch(`${serverUrl}/TaskItems`, options)
     .then(res => res.json())
 
   return promise
@@ -46,7 +46,7 @@ function updateSequenceToApi(sequenceChange) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/Pad/SequenceChanged`, options)
+  var promise = fetch(`${serverUrl}/TaskItems/SequenceChanged`, options)
     .then(res => res.json())
 
   return promise

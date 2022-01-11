@@ -5,8 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import dayjs from 'dayjs'
 
-function TaskDate({ taskDate , updateTaskDate}) {
-
+function TaskDate ({ taskDate, updateTaskDate }) {
   const setDateBack = () => {
     const updatedDate = dayjs(taskDate).add(-1, 'day')
     updateTaskDate(updatedDate)
@@ -30,7 +29,7 @@ function TaskDate({ taskDate , updateTaskDate}) {
             <Button variant="outline-primary" onClick={setDateBack}> Back </Button>
           </Col>
           <Col>
-            {dayjs(taskDate).format("MMM DD YYYY")} 
+            {dayjs(taskDate).format('MMM DD YYYY')}
             <Button variant="link" onClick={setDateToday}>(Go to today)</Button>
           </Col>
           <Col>

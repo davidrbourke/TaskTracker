@@ -1,8 +1,7 @@
 import Tasks from './Components/Tasks'
 import Container from 'react-bootstrap/Container'
 
-function App() {
-
+function App () {
   return (
     <div>
       <Container>
@@ -13,7 +12,7 @@ function App() {
       </header>
       </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

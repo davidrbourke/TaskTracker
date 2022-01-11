@@ -7,13 +7,12 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-function Tasks() {
+function Tasks () {
   const [tasks, setTasks] = useState({})
   const [newTaskCount, setNewTaskCount] = useState(0)
   const [taskDate, setTaskDate] = useState(new Date())
 
   useEffect(() => {
-    
     loadTasks(taskDate)
       .then(item => {
         return setTasks(item)
@@ -22,18 +21,18 @@ function Tasks() {
 
   const saveTask = (task) => {
     saveTaskToApi(task)
-    .then(res => {
-      const updatedTaskCount = newTaskCount + 1
-      setNewTaskCount(updatedTaskCount)
-    })
+      .then(res => {
+        const updatedTaskCount = newTaskCount + 1
+        setNewTaskCount(updatedTaskCount)
+      })
   }
 
   const saveUpdatedTask = (task) => {
     updateTaskToApi(task)
-    .then(res => {
-      const updatedTaskCount = newTaskCount + 1
-      setNewTaskCount(updatedTaskCount)
-    })
+      .then(res => {
+        const updatedTaskCount = newTaskCount + 1
+        setNewTaskCount(updatedTaskCount)
+      })
   }
 
   const updateEditingTask = (updatedTask) => {
@@ -41,7 +40,7 @@ function Tasks() {
     tasks.trackerTasks.forEach((task) => {
       if (task.id === updatedTask.id) {
         if (task.trackerTaskName !== updatedTask.trackerTaskName) {
-          task.trackerTaskName = updatedTask.trackerTaskName 
+          task.trackerTaskName = updatedTask.trackerTaskName
         } else {
           task.editing = !updatedTask.editing
           if (task.editing === false) {
@@ -63,7 +62,7 @@ function Tasks() {
     updateSequenceToApi(sequenceChange)
       .then(res => {
         const updatedTaskCount = newTaskCount + 1
-        setNewTaskCount(updatedTaskCount) 
+        setNewTaskCount(updatedTaskCount)
       })
   }
 

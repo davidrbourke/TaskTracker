@@ -6,8 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import EditTask from './EditTask'
 
-function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
-
+function TaskList ({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   const [lastTaskMoved, setLastTaskMoved] = useState('')
 
   const deleteTask = (task) => {
@@ -22,7 +21,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   }
 
   const sequenceDown = (task) => {
-    var sequenceChange = {
+    const sequenceChange = {
       changedTrackerTaskId: task.id,
       isChangedUp: false
     }
@@ -31,7 +30,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   }
 
   const sequenceUp = (task) => {
-    var sequenceChange = {
+    const sequenceChange = {
       changedTrackerTaskId: task.id,
       isChangedUp: true
     }
@@ -40,12 +39,11 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   }
 
   const getRowHighlightClassName = (id) => {
-    setTimeout(() => { setLastTaskMoved('')}, 500)
+    setTimeout(() => { setLastTaskMoved('') }, 500)
     return id === lastTaskMoved ? 'sequence-changed' : ''
   }
 
   const getTaskList = (tasks) => {
-
     const taskDay = tasks.sort((a, b) => a.sequence - b.sequence)
     return (
       <div>
@@ -75,7 +73,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
                       <Button variant="light" onClick={() => deleteTask(task)}><i className="bi-trash"></i></Button>
                     </Col>
                     <Col>
-                      <Button variant="light" disabled={i === taskDay.length-1}  onClick={() => sequenceDown(task)}><i className="bi-arrow-down"></i></Button>
+                      <Button variant="light" disabled={i === taskDay.length - 1} onClick={() => sequenceDown(task)}><i className="bi-arrow-down"></i></Button>
                     </Col>
                     <Col>
                       <Button variant="light" disabled={i === 0} onClick={() => sequenceUp(task)}><i className="bi-arrow-up"></i></Button>
@@ -90,8 +88,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
     )
   }
 
-  function getTasks() {
-      
+  function getTasks () {
     return (
     <>
       <ul>
@@ -103,7 +100,6 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
         }
       </ul>
     </>)
-
   }
 
   return (

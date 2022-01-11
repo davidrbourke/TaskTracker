@@ -1,10 +1,9 @@
 import Form from 'react-bootstrap/Form'
 import PropTypes from 'prop-types'
 
-function EditTask( { task, updateEditingTask }) {
-
+function EditTask ({ task, updateEditingTask }) {
   const setTaskName = (taskName) => {
-    let updatedTask = Object.assign({}, task)
+    const updatedTask = Object.assign({}, task)
     updatedTask.trackerTaskName = taskName
     updateEditingTask(updatedTask)
   }

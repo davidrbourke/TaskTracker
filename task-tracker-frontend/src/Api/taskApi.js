@@ -1,13 +1,13 @@
 const serverUrl = 'https://localhost:5001'
 
-function loadTasks(taskDate) {
-  var promise = fetch(`${serverUrl}/TaskItems?taskDate=${taskDate.toISOString()}`)
-      .then(res => res.json())
+function loadTasks (taskDate) {
+  const promise = fetch(`${serverUrl}/TaskItems?taskDate=${taskDate.toISOString()}`)
+    .then(res => res.json())
 
   return promise
 }
 
-function saveTaskToApi(task) {
+function saveTaskToApi (task) {
   const options = {
     method: 'POST',
     body: JSON.stringify(task),
@@ -16,13 +16,13 @@ function saveTaskToApi(task) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/TaskItems`, options)
+  const promise = fetch(`${serverUrl}/TaskItems`, options)
     .then(res => res.json())
 
   return promise
 }
 
-function updateTaskToApi(task) {
+function updateTaskToApi (task) {
   const options = {
     method: 'PUT',
     body: JSON.stringify(task),
@@ -31,13 +31,13 @@ function updateTaskToApi(task) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/TaskItems`, options)
+  const promise = fetch(`${serverUrl}/TaskItems`, options)
     .then(res => res.json())
 
   return promise
 }
 
-function updateSequenceToApi(sequenceChange) {
+function updateSequenceToApi (sequenceChange) {
   const options = {
     method: 'POST',
     body: JSON.stringify(sequenceChange),
@@ -46,7 +46,7 @@ function updateSequenceToApi(sequenceChange) {
     }
   }
 
-  var promise = fetch(`${serverUrl}/TaskItems/SequenceChanged`, options)
+  const promise = fetch(`${serverUrl}/TaskItems/SequenceChanged`, options)
     .then(res => res.json())
 
   return promise

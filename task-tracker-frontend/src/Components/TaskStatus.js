@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import PropTypes from 'prop-types'
 
 function TaskStatus ({ task, updateTask }) {
   const statuses = [
@@ -12,9 +13,9 @@ function TaskStatus ({ task, updateTask }) {
   ]
 
   const nextStatus = [
-  <i className="bi-caret-right-fill"></i>,
-  <i className="bi-check-lg"></i>,
-  <i className="bi-arrow-repeat"></i>
+  <i key={'start'} className="bi-caret-right-fill"></i>,
+  <i key= {'check'} className="bi-check-lg"></i>,
+  <i key={'restart'} className="bi-arrow-repeat"></i>
   ]
 
   const updateTaskStatus = () => {
@@ -42,6 +43,13 @@ function TaskStatus ({ task, updateTask }) {
       </Container>
     </>
   )
+}
+
+TaskStatus.propTypes = {
+  task: PropTypes.shape({
+    status: PropTypes.number
+  }),
+  updateTask: PropTypes.func
 }
 
 export default TaskStatus

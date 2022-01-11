@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import PropTypes from 'prop-types'
 
 function CreateTask ({ saveTask, taskDate }) {
   const [taskName, setTaskName] = useState('')
@@ -33,6 +34,11 @@ function CreateTask ({ saveTask, taskDate }) {
       </Form>
     </>
   )
+}
+
+CreateTask.propTypes = {
+  saveTask: PropTypes.func,
+  taskDate: PropTypes.instanceOf(Date)
 }
 
 export default CreateTask

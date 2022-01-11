@@ -1,7 +1,8 @@
+import React from 'react'
 import Form from 'react-bootstrap/Form'
 import PropTypes from 'prop-types'
 
-function EditTask ({ task, updateEditingTask }) {
+const EditTask = ({ task, updateEditingTask }) => {
   const setTaskName = (taskName) => {
     const updatedTask = Object.assign({}, task)
     updatedTask.trackerTaskName = taskName
@@ -17,9 +18,10 @@ function EditTask ({ task, updateEditingTask }) {
 
 EditTask.propTypes = {
   task: PropTypes.shape({
-    id: PropTypes.string
+    id: PropTypes.string,
+    trackerTaskName: PropTypes.string
   }),
-  setTaskName: PropTypes.func
+  updateEditingTask: PropTypes.func
 }
 
 export default EditTask

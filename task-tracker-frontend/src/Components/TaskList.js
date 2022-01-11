@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import EditTask from './EditTask'
+import PropTypes from 'prop-types'
 
 function TaskList ({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   const [lastTaskMoved, setLastTaskMoved] = useState('')
@@ -15,8 +16,6 @@ function TaskList ({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
   }
 
   const editTask = (task) => {
-    if (task.editing === true) {
-    }
     updateEditingTask(task)
   }
 
@@ -109,6 +108,14 @@ function TaskList ({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
       }
     </>
   )
+}
+
+TaskList.propTypes = {
+  // TODO: expand the tasks prop type
+  tasks: PropTypes.object,
+  updateTask: PropTypes.func,
+  updateEditingTask: PropTypes.func,
+  sequenceChanged: PropTypes.func
 }
 
 export default TaskList

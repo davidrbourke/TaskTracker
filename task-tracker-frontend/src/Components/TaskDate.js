@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import dayjs from 'dayjs'
+import PropTypes from 'prop-types'
 
 function TaskDate ({ taskDate, updateTaskDate }) {
   const setDateBack = () => {
@@ -39,6 +40,11 @@ function TaskDate ({ taskDate, updateTaskDate }) {
       </Container>
     </>
   )
+}
+
+TaskDate.propTypes = {
+  taskDate: PropTypes.instanceOf(Date),
+  updateTaskDate: PropTypes.func
 }
 
 export default TaskDate

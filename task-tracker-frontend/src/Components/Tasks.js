@@ -12,12 +12,10 @@ function Tasks() {
   const [newTaskCount, setNewTaskCount] = useState(0)
   const [taskDate, setTaskDate] = useState(new Date())
 
-
   useEffect(() => {
     
     loadTasks(taskDate)
       .then(item => {
-        console.log(item)
         return setTasks(item)
       })
   }, [newTaskCount, taskDate])
@@ -35,17 +33,25 @@ function Tasks() {
     .then(res => {
       const updatedTaskCount = newTaskCount + 1
       setNewTaskCount(updatedTaskCount)
-    })    
+    })
   }
 
   const updateEditingTask = (updatedTask) => {
     const updatedTrackerTasks = []
     tasks.trackerTasks.forEach((task) => {
       if (task.id === updatedTask.id) {
-        task.editing = !updatedTask.editing
+        if (task.trackerTaskName !== updatedTask.trackerTaskName) {
+          task.trackerTaskName = updatedTask.trackerTaskName 
+        } else {
+          task.editing = !updatedTask.editing
+          if (task.editing === false) {
+            saveUpdatedTask(task)
+          }
+        }
       }
       updatedTrackerTasks.push(task)
     })
+
     const tasksUpdated = Object.assign({}, tasks)
     tasksUpdated.trackerTasks = updatedTrackerTasks
     setTasks(tasksUpdated)
@@ -53,7 +59,6 @@ function Tasks() {
 
   const sequenceChanged = (sequenceChange) => {
     sequenceChange.trackerDayDateTime = taskDate
-    console.log(sequenceChange)
 
     updateSequenceToApi(sequenceChange)
       .then(res => {

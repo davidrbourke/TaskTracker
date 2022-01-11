@@ -1,3 +1,11 @@
+
+fix bug
+
+refactor frontend
+- review components
+- add redux
+- prop types
+
 terraform for infrastructure
 
 deploy to azure web app
@@ -9,6 +17,8 @@ replace file with database, cosmos db
 
 refactor backend
 
+
+
 introduce state management for front end - redux?
 
 drap and drop for task priority
@@ -16,3 +26,5 @@ drap and drop for task priority
 unit tests
 
 make ui better
+
+add scss

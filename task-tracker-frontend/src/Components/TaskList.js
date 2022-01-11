@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import TaskStatus from './TaskStatus'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -52,7 +52,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
         <ul>
           { taskDay !== null && taskDay.map((task, i) => {
             return (
-              <li>
+              <li key={task.id}>
                 <Container>
                   <Row className={getRowHighlightClassName(task.id)}>
                     <Col xs={6}>
@@ -60,7 +60,7 @@ function TaskList({ tasks, updateTask, updateEditingTask, sequenceChanged }) {
                         task.trackerTaskName
                       }
                       { task.editing === true &&
-                        <EditTask task={task} />
+                        <EditTask task={task} updateEditingTask={updateEditingTask} />
                       }
                     </Col>
                     <Col xs={3}>

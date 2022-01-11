@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
+import PropTypes from 'prop-types'
 
-function EditTask( { task }) {
+function EditTask( { task, updateEditingTask }) {
 
-  const [taskName, setTaskName] = useState('')
-
-  useEffect(() => {
-    setTaskName(task.trackerTaskName)
-  }, [])
+  const setTaskName = (taskName) => {
+    let updatedTask = Object.assign({}, task)
+    updatedTask.trackerTaskName = taskName
+    updateEditingTask(updatedTask)
+  }
 
   return (
     <>
-      <Form.Control type="text" value={taskName} onChange={(e) => setTaskName(e.target.value)}/>
+      <Form.Control type="text" value={task.trackerTaskName} onChange={(e) => setTaskName(e.target.value)}/>
     </>
   )
+}
+
+EditTask.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string
+  }),
+  setTaskName: PropTypes.func
 }
 
 export default EditTask

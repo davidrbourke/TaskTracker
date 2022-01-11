@@ -78,6 +78,7 @@ namespace TaskTracker.Domain
             var foundTask = trackerDay.TrackerTasks.Single(t => t.Id == trackerTask.Id);
             foundTask.Status = trackerTask.Status;
             foundTask.Deleted = trackerTask.Deleted;
+            foundTask.TrackerTaskName = trackerTask.TrackerTaskName;
 
             _repository.Save(MapToTaskItemsEntity(this));
         }
